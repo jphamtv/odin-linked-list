@@ -133,7 +133,7 @@ function linkedList() {
     }
 
     return null;
-  }
+  };
 
   const toString = () => {
     let currentNode = headNode;
