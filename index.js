@@ -6,19 +6,17 @@ function node(data = null, nextNode = null) {
 // Linked List 
 function linkedList() {
   let headNode = null;
+  let tailNode = null;
 
   const append = (value) => {
     const endNode = node(value);
 
     if (headNode === null) {
       headNode = endNode;
+      tailNode = endNode;
     } else {
-      let currentNode = headNode;
-      while (currentNode.nextNode !== null) {
-        currentNode = currentNode.nextNode;
-      }
-
-      currentNode.nextNode = endNode;
+      tailNode.nextNode = endNode;
+      tailNode = endNode;
     }
   };
 
@@ -47,24 +45,18 @@ function linkedList() {
 
   const head = () => {
     if (headNode === null) {
-      return `List is empty.`;
+      return null;
     } else {
       return headNode.data;
     }
   };
 
   const tail = () => {
-    let currentNode = headNode;
-
-    if (currentNode === null) {
-      return `List is empty.`
+    if (tailNode === null) {
+      return null;
+    } else {
+      return tailNode.data;
     }
-
-    while (currentNode.nextNode !== null) {
-      currentNode = currentNode.nextNode;
-    }
-
-    return currentNode.data;
   };
 
   const nodeAtIndex = (index) => {
@@ -86,25 +78,24 @@ function linkedList() {
 
   const pop = () => {
     if (headNode === null) {
-      return `List is empty.`
+      return null;
     }
 
+    const poppedValue = tailNode.data;
+
     if (headNode.nextNode === null) {
-      const poppedValue = headNode.data;
       headNode = null;
+      tailNode = null;
       return `${poppedValue} removed.`;
     }
 
     let currentNode = headNode;
-    let previousNode = null
-
-    while (currentNode.nextNode !== null) {
-      previousNode = currentNode;
+    while (currentNode.nextNode !== tailNode) {
       currentNode = currentNode.nextNode;
     }
 
-    const poppedValue = currentNode.data;
-    previousNode.nextNode = null;
+    currentNode.nextNode = null;
+    tailNode = currentNode;
     return `${poppedValue} removed.`
   };
 
@@ -182,7 +173,7 @@ let size = myList.size();
 let head = myList.head();
 let tail = myList.tail();
 let nodeAtIndex = myList.nodeAtIndex(3);
-// let pop = myList.pop();
+let pop = myList.pop();
 let string = myList.toString();
 let contains = myList.contains(20);
 let find = myList.find(40);
@@ -192,6 +183,6 @@ console.log(head);
 console.log(tail);
 console.log(nodeAtIndex);
 console.log(string);
-// console.log(pop);
+console.log(pop);
 console.log(contains);
 console.log(find);
